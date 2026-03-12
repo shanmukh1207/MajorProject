@@ -1,0 +1,96 @@
+model listing-> place
+
+titile -> str
+discription->str
+image ->str
+price-> number
+pricelocation->str
+country->str
+
+create a folder as models and add listing.js file
+
+
+bsic db model creating , be concious about the spelling it may create lot of issues..
+
+
+// code in app.js page 
+
+const express = require("express");
+const app = express()
+const mongoose = require("mongoose")
+const Listing = require("./Models/listing")
+const port = 8080;
+
+
+MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"
+
+main().then(()=>{
+    console.log('connected to db')
+}).catch(err =>{
+    console.log(err)
+})
+async function main(){
+    await mongoose.connect(MONGO_URL)
+}
+
+app.get("/",(req,res)=>{
+    res.send("Hi, I am Root");
+})
+app.get("/testListing", async(req,res)=>{
+    let sampleListing = new Listing({
+        title:"My new Villa",
+        description:"by the beach",
+        price:1200,
+        location:"Calanguta,Goa",
+        country:"India"
+        
+
+    });
+    await sampleListing.save();
+    console.log("sample was saved")
+    res.send("Successfull testing")
+});
+
+app.listen(port,()=>{
+    console.log(`app is listening at port ${port}`)
+})
+
+
+=------
+code in listing.js page
+
+
+
+const mongoose = require("mongoose")
+
+const Schema = mongoose.Schema;
+
+const listingSchema = new Schema({
+    //title:String,
+    title:{
+        type:String,
+       
+        required:true,
+        
+    },
+    description:String,
+    img:{
+        type:"String",
+        default:"https://media.istockphoto.com/id/117211856/photo/where-coconuts-grow.jpg?s=1024x1024&w=is&k=20&c=asnVSAWfN_SKJtf0b5k_fDc_DSnBknzA9I6noKXlY8k=",
+         set:(v)=>v===""?"https://media.istockphoto.com/id/117211856/photo/where-coconuts-grow.jpg?s=1024x1024&w=is&k=20&c=asnVSAWfN_SKJtf0b5k_fDc_DSnBknzA9I6noKXlY8k=":v
+    },
+    price : Number,
+    location : String,
+    counrty : String
+
+});
+
+const Listing = mongoose.model("Listing",listingSchema);
+module.exports = Listing;
+
+
+
+// database for next part of code
+https://github.com/apna-college/wanderlust/blob/main/init/data.js
+
+

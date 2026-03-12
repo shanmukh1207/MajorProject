@@ -1,0 +1,7 @@
+we will learn how to dealt a listing
+
+delete req will go to listings/id
+
+will add abt called as delete to each listing
+
+go to show.ejs

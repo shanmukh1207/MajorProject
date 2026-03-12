@@ -1,0 +1,117 @@
+to add styling we will use aonther package called as ejs mate
+
+npm i ejs-mate for to install this
+
+then require that in app.js
+const ejsMate = require("ejs-mate);
+
+ejs mate help us to create multiple layouts
+
+like some components are common on every page example navbar, footer
+
+it has the similar logic like includes/partials
+it helps us in ejs
+
+go to npm package of ejsMate
+
+and add this line in app.js
+app.engine('ejs',ejsMate);
+
+inside views create another folder with the name layouts
+
+inside that our 1st layout will be boilderplate.ejs , 
+
+we use
+<%layout('boilerplate')-%> 
+
+
+
+this in index.js
+<% layout("/layouts/boilerplate") %>
+
+
+
+this in boilerplate
+<div class="container"><%-body%></div>
+
+it reduces the redundency its great 
+
+and now we will make a public folder to serve static files
+
+here static means if we want to serve images or css or js logic we serve these thigs with the help of static files in a public folder
+
+public/css shortcut
+
+don't forget to add app.use(express.static(path.join(__dirname,"/public"))) in app.js
+
+then after that go to boilderplate 
+and add the following
+<link rel="stylesheet" href="/css/style.css"> in head
+
+
+
+----code in index.js------
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <h3>All listings</h3>
+    <form action="/listings/new" method="get">
+        <button>Create new Listing</button>
+    </form>
+    <ul>
+        /*show route! ._id ?*/
+    <%for(listing of allListings){%>
+        <li>
+       <a href="/listings/<%= listing._id %>">
+            <%= listing.title %>
+        </a>
+        </li>
+        
+
+    <%}%>
+    
+</ul>
+</body>
+
+
+----code in boilerplate.ejs -----
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>WanderLust</h1>
+    <div class="container"><%-body%></div>
+</body>
+</html>
+
+similar in show route too
+ show.ejs
+
+
+
+<%layout("/layouts/boilerplate")%>
+
+<body>
+    <h3>Listing Details:</h3>
+
+    <ul>
+        <li><%=listing.title%></li>
+        <li><%=listing.description%></li>
+        <li>&#8377;<%=listing.price.toLocaleString("en-IN")%></li>
+        <li><%=listing.location%></li>
+        <li><%=listing.country%></li>
+    </ul>
+    <a href="/listings/<%=listing._id%>/edit">Edit this listing</a>
+    <br>
+    <form action="/listings/<%=listing._id%>?_method=DELETE" method="post">
+        <button>Delete this listing</button>
+    </form>
+    
+</body>
+

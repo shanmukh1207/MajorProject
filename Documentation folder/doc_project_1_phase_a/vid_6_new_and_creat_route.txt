@@ -1,0 +1,109 @@
+now similar to our quora and whats app routes 
+we are going to creatin new route which opens a route and then we are going to create a new listing using that route..
+
+
+will create a button in our all listings page
+
+
+---- app.js code..
+
+const express = require("express");
+const app = express()
+const mongoose = require("mongoose")
+const Listing = require("./Models/listing")
+
+const path = require("path")
+const port = 8080;
+
+
+MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"
+
+main().then(()=>{
+    console.log('connected to db')
+}).catch(err =>{
+    console.log(err)
+})
+async function main(){
+    await mongoose.connect(MONGO_URL)
+}
+
+app.set("view engine","ejs");
+app.set("views",path.join(__dirname,"views"));
+app.use(express.urlencoded({extended:true}));// to parse data inurl
+
+app.get("/",(req,res)=>{
+    res.send("Hi, I am Root");
+})
+app.get("/listings",async(req,res)=>{
+    // Listing.find({}).then((res)=>{
+    //     console.log(res)
+    // })// to check weather we are getting the data or not
+
+    const allListings = await Listing.find({})
+    res.render("listings/index.ejs",{allListings})
+})
+//New route
+app.get("/listings/new",(req,res)=>{
+    res.render("listings/new.ejs")
+})
+
+//show Route
+app.get("/listings/:id", async (req,res)=>{
+    let {id} = req.params;
+    const listing = await Listing.findById(id)
+    res.render("listings/show.ejs",{listing})
+
+})
+//create Route
+
+
+app.post("/listings",async (req,res)=>{
+    // let {title,description,location,country,price,img} = req.body;
+
+    
+   const newListing =  new Listing(req.body.listing)//parsing
+    await newListing.save()
+    console.log(newListing);
+    res.redirect("/listings")
+
+
+})
+
+
+
+app.listen(port,()=>{
+    console.log(`app is listening at port ${port}`)
+})
+
+
+---new.ejs 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust</title>
+</head>
+<body>
+    <h3>All listings</h3>
+    <form action="/listings/new" method="get">
+        <button>Create new Listing</button>
+    </form>
+    <ul>
+        /*show route! ._id ?*/
+    <%for(listing of allListings){%>
+        <li>
+       <a href="/listings/<%= listing._id %>">
+            <%= listing.title %>
+        </a>
+        </li>
+
+    <%}%>
+    
+</ul>
+</body>
+</html>
+
+
+

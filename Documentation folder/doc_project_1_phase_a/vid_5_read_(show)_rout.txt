@@ -1,0 +1,78 @@
+Read : Show Route
+get req -> /listings/:id
+
+will create show.ejs in listings of views..
+
+
+/// index.js 
+const express = require("express");
+const app = express()
+const mongoose = require("mongoose")
+const Listing = require("./Models/listing")
+
+const path = require("path")
+const port = 8080;
+
+
+MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"
+
+main().then(()=>{
+    console.log('connected to db')
+}).catch(err =>{
+    console.log(err)
+})
+async function main(){
+    await mongoose.connect(MONGO_URL)
+}
+
+app.set("view engine","ejs");
+app.set("views",path.join(__dirname,"views"));
+app.use(express.urlencoded({extended:true}));// to parse data inurl
+
+app.get("/",(req,res)=>{
+    res.send("Hi, I am Root");
+})
+app.get("/listings",async(req,res)=>{
+    // Listing.find({}).then((res)=>{
+    //     console.log(res)
+    // })// to check weather we are getting the data or not
+
+    const allListings = await Listing.find({})
+    res.render("listings/index.ejs",{allListings})
+})
+
+//show Route
+app.get("/listings/:id", async (req,res)=>{
+    let {id} = req.params;
+    const listing = await Listing.findById(id)
+    res.render("listings/show.ejs",{listing})
+
+})
+
+
+app.listen(port,()=>{
+    console.log(`app is listening at port ${port}`)
+})
+
+code in show.ejs
+
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust</title>
+</head>
+<body>
+    <h3>ListingmDetails:</h3>
+
+    <ul>
+        <li><%=listing.title%></li>
+        <li><%=listing.description%></li>
+        <li><%=listing.location%></li>
+        <li><%=listing.country%></li>
+    </ul>
+    
+</body>
+</html>

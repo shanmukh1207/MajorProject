@@ -1,0 +1,20 @@
+<% layout("/layouts/boilerplate") -%>
+<body>
+    <h2>Creating a new Listing</h2>
+    <form action="/listings" method="post">
+        <input type="text" name="listing[title]" placeholder="enter the title">
+        <br><br>
+        <textarea type="text" name="listing[description]" placeholder="enter the description"></textarea>
+        <br><br>
+        <input type="text" name="listing[img]" placeholder="enter the img url">
+        <br><br>
+        <input  name="listing[price]" type="number" placeholder="enter price in number"> 
+        
+        <br><br>
+        <input  name="listing[country]" type="text" placeholder="enter counrty">
+        <br><br>
+        <input  name="listing[location]" type="text" placeholder="enter location">
+        <br><br>
+        <button>add</button>
+    </form>
+
