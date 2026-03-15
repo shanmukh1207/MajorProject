@@ -5,17 +5,28 @@
     <!-- <form action="/listings/new" method="get">
         <button>Create new Listing</button>
     </form> --> no need of this button
-    <ul>
-        /*show route! ._id ?*/
-    <%for(listing of allListings){%>
-        <li>
-       <a href="/listings/<%= listing._id %>">
-            <%= listing.title %>
-        </a>
-        </li>
-        
 
-    <%}%>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 "> 
+        <% for(listing of allListings){%>
+
+            <a href="/listings/<%= listing._id %> " class="listing-link">
+
+    <div class="card col " style="width: 20rem;">
+  <img src="<%= listing.img %>" class="card-img-top" alt="listing image">
+  <div class="card-img-overlay">abc</div>
+  <div class="card-body">
+    <p class="card-text"><b><%=listing.title %></b>
+    <br>
+    <%=listing.description %>
+    <br>
+    &#8377;<%=listing.price.toLocaleString("en-IN")%>
+</p>
+  </div>
+</div>
+</a>
+<%}%>
+</div>
+
     
 </ul>
 </body>

@@ -1,0 +1,154 @@
+here we are styling the index page to make it more attractive we are using bootstrap and over that we are adding custom styling...
+
+
+changes in card custome design..
+
+added jakartha font using google fonts
+
+---showing individual cards..
+so far we use to click on the link but now we will add an anchor tage to the card
+card inside a tag
+
+
+here we did so many changes in our styling in index.ejs page so go through the page properly to understand the things in much more better way...
+
+stuling.....style.css
+
+
+body{
+    font-family: "Plus Jakarta Sans" !important
+}
+
+.navbar{
+    height: 5rem;
+    background: white;
+}
+
+.fa-compass{
+    color: #fe424d;
+    font-size: 2rem;
+}
+.nav-link{
+    color: #222 !important;
+}
+
+/* footer */
+.f-info-links a{
+    text-decoration: none;
+    color: #222;
+
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+    color: #222;
+
+}
+.f-info-links{
+    width: 100%;
+}
+.f-info-socials, .f-info-brand{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.f-info-socials i{
+    margin-left: 1rem;
+    font-size: 1.2rem;
+}
+.f-info{
+    display: flex;
+    height: 8rem;
+    background: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+    text-align: center;
+}
+
+/* // cards */
+.card{
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top{
+border-radius: 1rem !important;
+width: 100% !important;
+object-fit: cover !important;
+}
+
+.card-body{
+    padding: 0 !important;
+}
+
+.card-text{
+    font-weight: 400;
+}
+
+.listing-link{
+    text-decoration: none;
+    color: #222;
+}
+
+/* Card effect */
+
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+
+
+
+code in index.ejs 
+
+
+---------
+<% layout("/layouts/boilerplate") -%>
+
+<body>
+    <h3>All listings</h3>
+    <!-- <form action="/listings/new" method="get">
+        <button>Create new Listing</button>
+    </form> --> no need of this button
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 "> 
+        <% for(listing of allListings){%>
+
+            <a href="/listings/<%= listing._id %> " class="listing-link">
+
+    <div class="card col " style="width: 20rem;">
+  <img src="<%= listing.img %>" class="card-img-top" alt="listing image">
+  <div class="card-img-overlay">abc</div>
+  <div class="card-body">
+    <p class="card-text"><b><%=listing.title %></b>
+    <br>
+    <%=listing.price %>
+    <br>
+    &#8377;<%=listing.price.toLocaleString("en-IN")%>
+</p>
+  </div>
+</div>
+</a>
+<%}%>
+</div>
+
+    <ul>
+        /*show route! ._id ?*/
+    <%for(listing of allListings){%>
+        <li>
+       <a href="/listings/<%= listing._id %>">
+            <%= listing.title %>
+        </a>
+        </li>
+        
+
+    <%}%>
+    
+</ul>
+</body>
+-------------

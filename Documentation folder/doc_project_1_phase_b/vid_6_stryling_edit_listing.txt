@@ -1,3 +1,11 @@
+here we did so simple stuff as we know our edit form is similar to our add new form so follow the same design and create the edit form..
+
+so it is little hectic to do it again so please copy past it
+
+
+--- edit.ejs
+
+
 <% layout("/layouts/boilerplate") -%>
 <body>
     <div class="row mt-3">
