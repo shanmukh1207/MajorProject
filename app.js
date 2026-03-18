@@ -6,6 +6,9 @@ const Listing = require("./Models/listing")
 
 // requiring things for pat b
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utils/wrapAsync.js")
+const ExpressError = require("./utils/ExpressErrors.js")
+const joi = require("joi");
 
 
 const path = require("path")
@@ -56,13 +59,46 @@ app.get("/listings/:id", async (req,res)=>{
 
 })
 //create Route
-app.post("/listings", async (req,res)=>{
-//let listing = req.body.listing;
-const newListing = new Listing(req.body.listing);
+// app.post("/listings", async (req,res,next)=>{
 
- await newListing.save()
- res.redirect("/listings");
-})
+//     try{
+// //let listing = req.body.listing;
+// const newListing = new Listing(req.body.listing);
+
+//  await newListing.save()
+//  res.redirect("/listings");
+//  }catch(err){
+//     next(err)
+//  }
+// })
+
+// betterversion of writing trycatch with wrapAsync
+app.post("/listings",wrapAsync(async(req,res,next)=>{
+    if(!req.body.listing){
+        throw new ExpressError(400,"Send valied data for listing")
+    }
+    const newListing = new Listing(req.body.listing);
+    // for to deal with errors caused by individual fields..
+    if(!newListing.title){
+        throw new ExpressError(400,"title is missing")
+    }
+    if(!newListing.description){
+        throw new ExpressError(400,"description is missing")
+    }
+    if(!newListing.img){
+        throw new ExpressError(400,"img is missing")
+    }
+    if(!newListing.location){
+        throw new ExpressError(400,"location is missing")
+    }
+    if(!newListing.price){
+        throw new ExpressError(400,"price is missing")
+    }
+    await newListing.save();
+    res.redirect("/listings");
+
+}))
+
 
 
 
@@ -92,6 +128,29 @@ app.delete("/listings/:id", async(req,res)=>{
    console.log(deletedListing)
    res.redirect("/listings")
 })
+
+// app.all("*",(req,res,next)=>{
+//     next(new ExpressError(404,"Page not Found !"))
+// })
+
+
+app.use((err,req,res,next)=>{
+    let{statusCode = 500,message = "Somthig went wrong"} = err
+    // res.status(statusCode).send(message);
+    res.status(statusCode).render("listings/error.ejs",{message})
+    //res.render("listings/error",{err})
+})
+
+
+ 
+
+
+
+
+
+
+
+
 
 
 

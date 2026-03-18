@@ -1,0 +1,28 @@
+
+to show error in a presentable manner we will create an error.ejs page 
+
+
+it is working fone for listings/any error
+but now working for 8080/random showing as cannot get
+
+
+// errore.ejs
+
+<% layout("/layouts/boilerplate") %>
+<div class="row">
+    <div class="alert alert-danger col-6 offset-3" role="alert">
+  <%= message %>
+
+</div>
+</div>
+
+
+// code in app.js
+
+
+app.use((err,req,res,next)=>{
+    let{statusCode = 500,message = "Somthig went wrong"} = err
+    // res.status(statusCode).send(message);
+    res.status(statusCode).render("listings/error.ejs",{message})
+    //res.render("listings/error",{err})
+})

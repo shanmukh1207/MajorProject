@@ -1,0 +1,53 @@
+here we will learn how to deal with error cause by individual fields
+
+
+one of the way to solve the issue is this..
+
+app.post("/listings",wrapAsync(async(req,res,next)=>{
+    if(!req.body.listing){
+        throw new ExpressError(400,"Send valied data for listing")
+    }
+    const newListing = new Listing(req.body.listing);
+    // for to deal with errors caused by individual fields..
+    if(!newListing.title){
+        throw new ExpressError(400,"title is missing")
+    }
+    if(!newListing.description){
+        throw new ExpressError(400,"description is missing")
+    }
+    if(!newListing.img){
+        throw new ExpressError(400,"img is missing")
+    }
+    if(!newListing.location){
+        throw new ExpressError(400,"location is missing")
+    }
+    if(!newListing.price){
+        throw new ExpressError(400,"price is missing")
+    }
+    await newListing.save();
+    res.redirect("/listings");
+
+}))
+
+
+
+
+but here we have a better version to solve this by using Joi it is used to validate the schema
+
+
+the validation which we are trying to do with if conditions that can be done with the help of joi
+
+
+it is an npm package so we require but before that we download that..
+
+not only for express can also be used for js..
+
+
+the schema which we create with joi it is not from mongoose validation it is validation for serverside validation
+
+
+so far we did clintside validation with --> form and also did error handling..
+
+now with joi we do sever side validation
+
+parallel to app.js we will create schema.js

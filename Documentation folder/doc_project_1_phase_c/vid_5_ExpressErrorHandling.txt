@@ -1,0 +1,39 @@
+create a file with the name ExpressErrors.js in utils folder..
+
+------------code in expressError.js---------------
+class ExpressError extends Error{
+    constructor(statusCode,message){
+        super();
+        this.statusCode = statusCode;
+        this.message = message;
+
+    }
+}
+
+
+module.exports = ExpressError;
+
+
+
+
+
+
+
+
+------------
+// app.use((err,req,res,next)=>{
+//     res.send("somthing went wrong")
+// }) changing this after add ExpressError...
+
+app.use((err,req,res,next)=>{
+    let{statusCode,message} = err
+    res.status(statusCode).send(message);
+})
+
+
+then over this we usw app.all("*",(req,res,next)=>{
+    next(new ExpressError(404,"Page not Found !"))
+})
+
+
+// observe it properly if you use :id then it may conside the error handler as id ....

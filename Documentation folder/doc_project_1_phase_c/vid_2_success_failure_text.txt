@@ -1,0 +1,13 @@
+success and failure text.. 
+
+
+if we add data correctly it gives success if we add somthing wring it show err msg
+
+we use "valied feedback" and "invalied-feedback"
+
+inside the form we add div tags for each form
+
+
+here it is fine but when you go with postman or hubscoch for post request... any data can be sent to the backend..
+
+so that't why we use validation at serverside saperately to haldle errors saperately

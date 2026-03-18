@@ -1,0 +1,59 @@
+
+validation is noting but checking some basic conditions so that we can assue the data which we are sending or recieveing is in correct format..
+
+it is of two type 
+
+1st clint side.. frontend -> to -> backend for this we use form validation..
+
+2nd server side..
+-> it is check weather data is saving according to the schema or not , and if any error occurs how we handle those errors...
+
+
+
+in clint side validation we will deal with form validation
+
+defination.....
+
+When we enter the datain the form, the browser or the web server will check to see that the data is in the correct format and within the constrin set by the application
+
+keeping important things as required..
+
+here different web browsers acts in a differnt way we need to add the standerdisation to them so in place of that what we can do is 
+
+we will use bootstrap required btn 
+
+to use that 1st we add the word "novalidate" so that browser stop validating that... form inside form tag
+
+add a class as "needs-validation"
+
+along with that we need to add the js code also
+
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})() 
+
+inside public/js/script.js
+
+
+and we kept <script src="/js/script.js"></script> this link in boilerplat.ejs...
+
+
+
+little trickey but you can do it ... :-)..

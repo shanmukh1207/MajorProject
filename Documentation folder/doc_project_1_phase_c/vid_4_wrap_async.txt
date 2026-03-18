@@ -1,0 +1,44 @@
+here will use wrap async it is nothing but a betterway to write the 
+try catch block
+
+
+for that we will create a folder called as utils 
+here we store things which are related to our utility....
+
+utils/wrapAsync.js
+
+it is simply a function which takes a function and as result returns a function..
+code in 
+utils/wrapAsync =>
+------
+module.exports = (fn)=>{
+    return (req,res,next)=>{
+        fn(req,res,next).catch(next);
+    }
+}
+-----
+
+
+---> in app.js
+//create Route
+// app.post("/listings", async (req,res,next)=>{
+
+//     try{
+// //let listing = req.body.listing;
+// const newListing = new Listing(req.body.listing);
+
+//  await newListing.save()
+//  res.redirect("/listings");
+//  }catch(err){
+//     next(err)
+//  }
+// })
+
+------------as--------------
+
+// betterversion of writing trycatch with wrapAsync
+app.post("/listings",wrapAsync(async(req,res,next)=>{
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listings");
+}))
