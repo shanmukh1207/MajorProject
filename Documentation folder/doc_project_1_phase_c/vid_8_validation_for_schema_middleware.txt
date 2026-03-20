@@ -1,0 +1,13 @@
+we convert the whole part into the form of function
+
+as
+
+const validateListing = (req,res,next){
+    let result = listingSchema.validate(req.body);
+
+    console.log(result)
+    if(result.error){
+       throw  new ExpressError(400,result.error);
+    }
+
+}

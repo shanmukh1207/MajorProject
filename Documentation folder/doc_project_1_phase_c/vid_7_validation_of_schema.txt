@@ -51,3 +51,43 @@ so far we did clintside validation with --> form and also did error handling..
 now with joi we do sever side validation
 
 parallel to app.js we will create schema.js
+
+import schema in app.js
+const {listingSchema} = require("./schema.js");
+
+but for to actually use it
+
+we need to remove the if conditions in the create route
+
+in place of them we write 
+
+listingSchema.validate(req.body);
+
+storing that in a variable
+
+let res = listingSchema.validate(req.body);
+
+and print that using console.log(res)
+
+
+
+code in create route........
+
+app.post("/listings",wrapAsync(async(req,res,next)=>{
+    let result = listingSchema.validate(req.body);
+
+    console.log(result)
+
+    // if it encounters an Error  it showcase the error...
+    
+    if(result.error){
+        new ExpressError(400,result.error);
+    }
+
+    const newListing = new Listing(req.body.listing);
+
+    
+    await newListing.save();
+    res.redirect("/listings");
+
+}))

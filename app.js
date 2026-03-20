@@ -8,7 +8,9 @@ const Listing = require("./Models/listing")
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js")
 const ExpressError = require("./utils/ExpressErrors.js")
-const joi = require("joi");
+const Joi = require("joi");
+const {listingSchema} = require("./schema.js");
+
 
 
 const path = require("path")
@@ -38,6 +40,23 @@ app.use(express.static(path.join(__dirname,"/public")))
 app.get("/",(req,res)=>{
     res.send("Hi, I am Root");
 })
+
+
+const validateListing =  (req,res,next)=>{
+    let {error} = listingSchema.validate(req.body);
+ if(error){
+    //    throw  new ExpressError(400,error);
+    throw  new ExpressError(400,errMsg);
+    }else{
+        next();
+
+    }
+}
+
+    
+    
+
+
 app.get("/listings",async(req,res)=>{
     // Listing.find({}).then((res)=>{
     //     console.log(res)
@@ -73,27 +92,46 @@ app.get("/listings/:id", async (req,res)=>{
 // })
 
 // betterversion of writing trycatch with wrapAsync
-app.post("/listings",wrapAsync(async(req,res,next)=>{
-    if(!req.body.listing){
-        throw new ExpressError(400,"Send valied data for listing")
-    }
-    const newListing = new Listing(req.body.listing);
+// app.post("/listings",wrapAsync(async(req,res,next)=>{
+    // if(!req.body.listing){
+    //     throw new ExpressError(400,"Send valied data for listing")
+    // }
+    // const newListing = new Listing(req.body.listing);
+
     // for to deal with errors caused by individual fields..
-    if(!newListing.title){
-        throw new ExpressError(400,"title is missing")
+    // if(!newListing.title){
+    //     throw new ExpressError(400,"title is missing")
+    // }
+    // if(!newListing.description){
+    //     throw new ExpressError(400,"description is missing")
+    // }
+    // if(!newListing.img){
+    //     throw new ExpressError(400,"img is missing")
+    // }
+    // if(!newListing.location){
+    //     throw new ExpressError(400,"location is missing")
+    // }
+    // if(!newListing.price){
+    //     throw new ExpressError(400,"price is missing")
+    // }
+
+    // using schema validation
+
+
+    app.post("/listings",wrapAsync(async(req,res,next)=>{
+        //call for validate listing
+        validateListing;
+
+    let result = listingSchema.validate(req.body);
+
+    console.log(result)
+    if(result.error){
+       throw  new ExpressError(400,result.error);
     }
-    if(!newListing.description){
-        throw new ExpressError(400,"description is missing")
-    }
-    if(!newListing.img){
-        throw new ExpressError(400,"img is missing")
-    }
-    if(!newListing.location){
-        throw new ExpressError(400,"location is missing")
-    }
-    if(!newListing.price){
-        throw new ExpressError(400,"price is missing")
-    }
+
+    const newListing = new Listing(req.body.listing);
+
+    
     await newListing.save();
     res.redirect("/listings");
 
@@ -115,6 +153,7 @@ app.get("/listings/:id/edit",async (req,res)=>{
 //update route
 
 app.put("/listings/:id",async(req,res)=>{
+    validateListing;
     let {id} = req.params;
    await Listing.findByIdAndUpdate(id,{...req.body.listing})// it is js object which contains all patameters
    res.redirect(`/listings/${id}`)
