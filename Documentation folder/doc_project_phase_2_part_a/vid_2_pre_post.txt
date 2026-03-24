@@ -1,0 +1,19 @@
+
+
+2 middle ware
+
+pre to do work before execution
+post to do work after querry execution
+
+find by id and delete calls fine one and delete in pre and post middlewares
+
+
+Schema.pre("finOneAndDelete",async()=>{
+    console.log("pre middleware")
+
+
+})
+Schema.post("
+findOneAndDelete",async(data)=>{
+    console.log("post middleware")
+})

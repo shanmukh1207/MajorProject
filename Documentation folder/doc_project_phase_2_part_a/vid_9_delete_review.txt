@@ -1,0 +1,31 @@
+deleting the review
+
+
+generally when we delete the listing the request is sent to 
+/listings/:id
+
+for to delete review we follow
+/listings/:id/reviews/:reviewId
+
+
+route for deleting review..
+
+//Delete Review Route
+app.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+    let{id,reviewId} = req.params;
+     await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}})
+    await Review.findByIdAndDelete(reviewId)
+   
+    res.redirect(`/listings/${id}/`)
+}))
+
+
+we add delte btn in show.ejs
+
+ <form action="/listings/<%= listing._id %>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+            <button class="btn btn-sm btn-dark mb-2">delete</button>
+          </form>
+
+
+
+here if you delete the review the review id will also get deleted in the listing reviews also

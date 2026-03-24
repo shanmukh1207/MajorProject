@@ -1,0 +1,23 @@
+Handling deletion..
+
+in two senarios in 1st one if we delete the user then ther posts won't be deletion and 
+
+in 2nd case if we delete the user then the his posts also get deleted...
+
+it is handling deletion
+
+it is cascading of deletion 
+
+example of customer and order when we delete the customer then orders also gets deleted 
+
+
+in mongoses it has some soecial middlewares 
+
+types of middle ware 
+now we deal with 
+
+querry middle wares
+
+
+pre and post...
+

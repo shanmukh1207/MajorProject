@@ -1,0 +1,34 @@
+now we will beautify this by adding some design..
+
+
+
+
+code in show.ejs
+<div class="row ">
+      <p><b>All reviews</b></p>
+     
+      
+      <% for( review of listing.reviews){ %>
+
+        <div class="card col-5 ms-3 mt-3">
+          <div class="card-body">
+            <div class="card-title"><b>Jon Deer</b></div>
+            <p class="card-text"><%=review.comment %></p>
+            <p><%=review.rating%> stars</p>
+          </div>
+        </div>
+
+        <% } %>
+
+        </div>
+      
+      
+    </div>
+
+
+
+
+
+// need to make some changes in css page
+
+we change cards to listing-cards in css

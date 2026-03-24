@@ -19,3 +19,15 @@ module.exports =  listingSchema = Joi.object({
 
 
 })
+
+
+// schema for review validation
+
+module.exports.reviewSchema = Joi.object({
+    review: Joi.object({
+        rating:Joi.number().required().min(1).max(5),
+        comment:Joi.string().required()
+    }).required()
+})
+// acquire this as similar to how we aquired the listing Schema in app.js
+

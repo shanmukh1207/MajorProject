@@ -1,0 +1,53 @@
+now here we are adding a feature of reviews section to our listings 
+
+it schema will contain 
+comment->String,
+rating -> 1 to 5 number,
+createdAt - > date time
+
+
+
+for this we will create Reviews.js in side model
+
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const reviewSchema = new Schema({
+    comment:String,
+    rating:{
+        type:Number,
+        min:1,
+        max:5
+
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now()
+    }
+})
+
+modules.exports = mongoose.model("Review",reviewSchema)
+
+//. it is going to be   1 to n relation because one listings can have multiple reviews
+
+// we will make changes in the listigs schema and add an array list of reviews...
+
+
+
+
+
+
+
+
+we add the following in listings.js
+reviews:{
+        type:Schema.Types.ObjectId,
+        ref:"Review"
+    }
+
+
+
+
+
+
+
