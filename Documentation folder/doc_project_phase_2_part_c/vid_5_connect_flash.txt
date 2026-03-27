@@ -1,0 +1,36 @@
+connect-flash npm..
+
+
+The flash is a special area of the session used for storing messages. Messages are written in the flash and cleared after being displayed to the user. General appears for once something in a form of alert like whenever we delete something whenever they add something.
+
+it is also a middleware
+
+npm i connect-flash
+
+app.use(flash())
+
+we pass two things key and message
+
+app.use(flash());
+
+
+app.get("/register",(req,res)=>{
+    let {name  = "anonaymus"} = req,query;
+    req.session.name = name;
+    req.flash("success","user registered successfully!");
+    res.reirect("/hello");
+
+});
+
+app.get("/hello",(req,res)=>{
+res.send(`/hello",${req.session.name,msg: req.flash("success")}`);
+});
+
+
+
+
+create views to show the message..
+
+in page.ejs we use it as
+<%msg%> // it flashes once
+<h1>Hello,<%=name%></h1>

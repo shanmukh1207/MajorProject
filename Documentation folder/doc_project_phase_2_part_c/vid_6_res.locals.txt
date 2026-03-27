@@ -1,0 +1,40 @@
+
+to use flsh in a betterway we use function of express called as res.locals
+
+
+app.get("/register",(req,res)=>{
+    if(name==="anonamous"){
+        req.flash("error", "user not registered");
+    }else{
+        req.flash("success", "user registeration successfull");
+
+    }
+    res.reirect("/hello");
+
+});
+
+---------------------
+better way is passing it as middlewares...
+
+app.use((req,res,next)=>{
+    res.local.successMsg = req.flash("success");
+    res.local.successMsg = req.flash("error");
+    next();
+
+})
+
+---
+
+app.get("/hello",(req,res)=>{
+    
+    res.render("page.ejs",{name:req.session.name});
+
+
+});
+
+-- page.ejs
+<%successMsg%> <%=errorMsg%>
+
+<h1>"Hello,<%= name %> </h1>
+
+

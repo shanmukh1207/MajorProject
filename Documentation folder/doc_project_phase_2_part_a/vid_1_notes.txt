@@ -11,7 +11,7 @@ it is cascading of deletion
 example of customer and order when we delete the customer then orders also gets deleted 
 
 
-in mongoses it has some soecial middlewares 
+in mongoses it has some social middlewares 
 
 types of middle ware 
 now we deal with 

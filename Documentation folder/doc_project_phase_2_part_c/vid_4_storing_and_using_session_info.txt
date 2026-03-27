@@ -1,0 +1,16 @@
+
+
+here we see how the data is getting saved in sessions and how we are use that information ....in other routes 
+
+
+code...
+
+app.get("/register",(req,res)=>{
+    let {name  = "anonaymus"} = req,query;
+    res.reirect("/hello");
+
+});
+
+app.get("/hello",(req,res)=>{
+res.send(`/hello",${req.session.name}`);
+});

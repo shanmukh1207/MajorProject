@@ -1,0 +1,9 @@
+ Express sessions general expressions are nothing, but whenever a client want to interact with a server, what happens is the user one will be allotted a ID session ID where what are the things which has it has saved suppose for example, if a person open Amazon and try to add some items, example, laptop and phone. These things will be stored inside a session ID because if the user one did not log into the data, then it temporarily stored the data inside a session ID at the server side and parallel to that inclined side, it will be sharing the session ID in the form of cookies. Why don't We send the whole data because there is a limit to the cookies and that those things are not secure and what is the use of using this session ID and user one is because wh the people didn't go and login into their accounts, example so many times in Amazon don't need to login, we can do 😇akka things and later we can during the payment or booking things. We can login to those things so suppose to use us and delivering into so many other products. There will be created session ID for everything and here express sessions helps in creating those session ideas and now we'll see how to implement this things....
+
+
+
+
+
+ for this we get express-sessions from npm .. it is a middleware....
+ somthing like a session..
+ 

@@ -1,0 +1,40 @@
+ whenever We had a new listing issue, give flash message as new listing added..
+
+ npm i connect-flash
+
+ const flash = require("connect-flash")
+
+ flash should be before the routes..
+
+ app.use(session(sessionOptions))
+app.use(flash())// has to kept befor app.use listngs, 
+
+
+app.use("/listings", listings)
+app.use("/listings/:id/reviews",reviews)
+
+
+
+flash is used with the help of routes
+
+
+// 🔹 Create Route
+router.post("/", validateListing, wrapAsync(async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    req.flash("success","New listing Created")<--add this line
+    res.redirect("/listings");
+}));
+
+
+
+// then create a middleware
+app.use((req,res,next )=>{
+    res.locals.success = flash("success")
+    next()
+
+})
+
+to use this go to listings->index.ejs
+
+and use success over h3 as success

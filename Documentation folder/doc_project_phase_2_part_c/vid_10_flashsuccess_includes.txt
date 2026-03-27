@@ -1,0 +1,38 @@
+add styling to the flash msg
+
+
+
+create flash.ejs in include folder
+
+and add this message in boilerplate befor body
+
+
+
+and add designing of bootstrap...
+
+
+
+
+----flash.ejs of includes
+
+<% if(success && success.length){ %>
+
+
+// the success is stored as array in res.locals to we use success.lenght also else it would be always true...
+
+<div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+  <%=success%>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<%} %>
+
+
+--- and add similar flash messages of delete and update routess
+
+in app.js
+
+ req.flash("success","listing is deleted")
+ req.flash("success","listing is updated")..
+
+
+ 

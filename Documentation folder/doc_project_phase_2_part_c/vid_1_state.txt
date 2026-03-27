@@ -1,0 +1,9 @@
+state is of two types 
+
+stateless protocall and stateful protocal 
+
+stateless on doesnot store any sort of data ex http request.....
+
+stateful protocall stores the data ex ftp protocall of phonepay transction...
+
+in next video we will lear how to save some data to make our project as stateful

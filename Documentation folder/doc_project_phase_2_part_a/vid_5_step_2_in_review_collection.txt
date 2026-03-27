@@ -48,7 +48,7 @@ code in show.ejs
     <hr />
     <div class="row mb-3 mt-3 col-8 offset-3">
       <h4>leave a review</h4>
-      <form action="/listings/<%=listing._id %>/review" method="post">
+      <form action="/listings/<%=listing._id %>/reviews" method="post">
         <div>
           <input
             type="range"
@@ -80,7 +80,7 @@ code in show.ejs
 
 // creating route for collecting the review
 
-app.post("/listings/:id/review", async(req,res)=>{
+app.post("/listings/:id/reviews", async(req,res)=>{
     let listing = await Listing.findById(req.params.id);
     let newReview = new Review(req.body.review);
 
@@ -95,3 +95,4 @@ app.post("/listings/:id/review", async(req,res)=>{
 
 
 I was making so many errors while doing this portion of the code so be concious and understand it again and again...
+ydfuyfu

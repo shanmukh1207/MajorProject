@@ -1,0 +1,17 @@
+
+1st install express-session in our project
+
+require it in app.js
+
+define session options
+--
+const sessionOptions = {
+    secret:"musupersecretcode",
+    resave:false,
+    saveUninitialized:true
+};
+
+inspect-> applications->connect.sid only when we use express-session it gets activated in cookies
+
+
+simple : 

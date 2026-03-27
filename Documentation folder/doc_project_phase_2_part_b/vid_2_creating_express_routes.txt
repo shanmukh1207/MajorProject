@@ -1,0 +1,19 @@
+now to make our code modular and to reduce confusion in code understandability we will write specific routes in different files
+
+for routes and posts.
+
+1st create routes folder-> inside that create files for specific routes
+
+and we write path in the form of router.get,post etc 
+
+we require express router along with express
+
+we require them in app.js
+
+const users = require("./router/user.js)
+
+but to use them we have to create a middle ware..
+
+app.use("/",users)
+
+here we not only keep "/" we also keep common word from the route path here we use app.use("/user",user)

@@ -1,0 +1,6 @@
+ if we login to a single website to our our Broweser and search something in a website and then changes to another tab. Then also our session remains same will be in the same session. We have the same session idea.
+
+ resave :false, saveUninitalised = true
+
+
+ 

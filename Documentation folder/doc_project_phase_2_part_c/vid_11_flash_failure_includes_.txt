@@ -1,0 +1,85 @@
+when we try to access a listing using it's id we get an error messge 
+insted of the we can add msg like this listing does not exists and we can rerirect to the listings page..
+
+
+go to show route..
+
+changes in it 
+// 🔹 Show Route
+router.get("/:id", wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id).populate("reviews");
+    if(!listing){
+        req.flash("failure","listing you requested doesnot exists")
+        return res.redirect("/listings")
+
+    }
+    
+    res.render("listings/show.ejs", { listing });
+}));
+
+
+
+--------
+then add the flash message in the middleware
+
+// then create a middleware
+app.use((req,res,next )=>{
+    res.locals.success = req.flash("success")-> 
+    res.locals.failure = req.flash("failure")
+    next();
+
+})
+
+
+
+----additions in routes... of update and show for failure message
+// 🔹 Show Route
+router.get("/:id", wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id).populate("reviews");
+    if(!listing){
+        req.flash("failure","listing you requested doesnot exists")
+        return res.redirect("/listings")
+
+    }
+    
+    res.render("listings/show.ejs", { listing });
+}));
+
+// 🔹 Create Route
+router.post("/", validateListing, wrapAsync(async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    req.flash("success","New listing Created")
+    res.redirect("/listings");
+}));
+
+// 🔹 Edit Route
+router.get("/:id/edit", wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+    if(!listing){
+        req.flash("failure","listing you requested doesnot exists")
+        return res.redirect("/listings")
+
+    }
+    
+    res.render("listings/edit.ejs", { listing });
+}));
+
+// 🔹 Update Route
+router.put("/:id", validateListing, wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+     req.flash("success","listing is updated")
+    res.redirect(`/listings/${id}`);
+}));
+
+// 🔹 Delete  Route
+router.delete("/:id", wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await Listing.findByIdAndDelete(id);
+     req.flash("success","listing is deleted")
+    res.redirect("/listings");
+}));

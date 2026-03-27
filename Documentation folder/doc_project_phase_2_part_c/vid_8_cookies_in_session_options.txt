@@ -1,0 +1,24 @@
+cookies in session cookies optionsss
+
+reference from npm 
+
+cookies.expire does not have expriare data if offes when a session terminates
+
+
+and some have expiary date for few day example fb has of 21 days that means if you login fb now then you try to login in to fb nxt time bfr 21 days it won't ask you the login details.
+
+adding cookies in our sessionOptions
+
+
+const sessionOptions = {
+    secret:"musupersecretcode",
+    resave:false,
+    saveUninitialized:true,
+
+    cookie:{
+        expires:Date.now() + 7*24*60*60*1000,
+        maxAge : 7*24*60*60*1000,
+        httpOnly:true,
+    }
+};
+

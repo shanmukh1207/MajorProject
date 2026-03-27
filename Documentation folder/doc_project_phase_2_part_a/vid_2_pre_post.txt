@@ -5,7 +5,7 @@
 pre to do work before execution
 post to do work after querry execution
 
-find by id and delete calls fine one and delete in pre and post middlewares
+find by id and delete calls find one and delete in pre and post middlewares
 
 
 Schema.pre("finOneAndDelete",async()=>{
