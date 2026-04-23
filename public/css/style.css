@@ -65,6 +65,7 @@ body{
 .card-img-top{
 border-radius: 1rem !important;
 width: 100% !important;
+height: 220px !important;
 object-fit: cover !important;
 }
 
@@ -118,4 +119,11 @@ object-fit: cover !important;
 .show-card{
     margin-right: 0;
     margin-left: 0;
+}
+
+
+#map { 
+  height: 200px;
+
+  width: 300px;
 }

@@ -5,7 +5,7 @@
         <h2>Creating a new Listing</h2>
 
     
-    <form method="post" novalidate class="needs-validation" action="/listings/<%=listing._id%>?_method=PUT" >
+    <form method="post" novalidate class="needs-validation" action="/listings/<%=listing._id%>?_method=PUT" enctype="multipart/form-data" >
         
         <div class="mb-3 ">
             <label for="title"  class="form-label">Title</label>
@@ -18,11 +18,15 @@
         <textarea required type="text" name = "listing[description]" class="form-control" ><%=listing.description%></textarea>
         <div class="invalid-feedback">description must be added</div>
         </div>
+        <div class="mb-3">
+            Original Listing Image
+            <img src="<%= originalImageUrl %>" alt="">
+        </div>
 
         <div class="mb-3">
-         <label for="img" class="form-label">Img</label>
-        <input required id="img" class="form-control" type="text" name="listing[img]" value="<%=listing.img%>">
-        <div class="invalid-feedback">image must be added</div>
+         <label for="img" class="form-label">upload new Img</label>
+        <input required id="img" class="form-control" type="file" name="listing[img]" 
+        
         </div>
         
         <div class="row">
